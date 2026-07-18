@@ -1,7 +1,6 @@
 // المسار: HomePageUI.tsx (النسخة الكاملة والنهائية بأسلوب الإضافة فقط)
 
 "use client";
-import dynamic from 'next/dynamic';
 import { useEffect, useState, useRef } from 'react';
 import { createSupabaseBrowserClient } from "@/lib/utils/supabase/client"; 
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -22,11 +21,10 @@ import { AccessibilityPanel } from "@/components/accessibility-panel";
 import { BottomNavigation } from "@/components/bottom-navigation";
 import { SearchAndCountries } from "@/components/SearchAndCountries";
 import { FeaturesSection } from "@/components/FeaturesSection";
+import { ProductCarousel } from "@/components/ProductCarousel";
 import { Package, RotateCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
-
-const ProductCarousel = dynamic(() => import('@/components/ProductCarousel').then(mod => mod.ProductCarousel), { ssr: false, loading: () => <div className="h-[380px] w-full animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg" /> });
 const PRODUCTS_PER_PAGE = 12;  // تقليل من 30 لتسريع التحميل
 
 // --- دوال الجلب للمنتجات (محسّنة) ---
@@ -286,14 +284,6 @@ export default function HomePageUI({
             title="الأكثر تفاعلًا 🔥" 
             products={mostInteractedProducts} 
             allCategories={allCategoriesData || []} 
-            renderProduct={(product, index) => (
-              <ProductCard
-                key={product.id}
-                item={product}
-                allCategories={allCategoriesData || []}
-                isPriority={index < 5}
-              />
-            )}
           />
           <div className="mt-8 space-y-12">  
             <ProductSection 
